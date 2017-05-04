@@ -18,6 +18,7 @@ namespace SVS.DP.Tests
             Assert.IsNotNull(singleton.value);
         }
 
+        // Creational Pattern
         internal class Singleton
         {
             public string value { get; set; }
