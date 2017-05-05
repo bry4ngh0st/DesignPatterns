@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SVS.DP.Patterns")]
+[assembly: AssemblyTitle("SVS.DP.Singleton")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SVS.DP.Patterns")]
+[assembly: AssemblyProduct("SVS.DP.Singleton")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e95cf53b-ec1e-4bd1-840b-54d5dceec1f5")]
+[assembly: Guid("63d54d88-e6ac-4b22-9e0f-63d3b87c9f78")]
 
 // Version information for an assembly consists of the following four values:
 //

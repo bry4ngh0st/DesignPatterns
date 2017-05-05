@@ -1,9 +1,9 @@
-﻿using SVS.DP.UnitOfWork.Entities;
+﻿using SVS.DP.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SVS.DP.UnitOfWork
+namespace SVS.DP.Patterns.UnitOfWork
 {
     public class UnitOfWork
     {

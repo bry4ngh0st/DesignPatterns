@@ -1,9 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SVS.DP.Patterns.Singleton;
 
 namespace SVS.DP.Tests
 {
@@ -15,19 +11,9 @@ namespace SVS.DP.Tests
         {
             var singleton = new Singleton();
 
-            Assert.IsNotNull(singleton.value);
-        }
+            var property = singleton.GetProperty();
 
-        // Creational Pattern
-        internal class Singleton
-        {
-            public string value { get; set; }
-
-            public Singleton()
-            {
-                if (value == null)
-                    value = string.Empty;
-            }
+            Assert.IsNotNull(property);
         }
     }
 }

@@ -1,23 +1,21 @@
 ﻿using NUnit.Framework;
-using SVS.DP.UnitOfWork.Entities;
+using SVS.DP.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SVS.DP.Patterns.UnitOfWork;
 
 namespace SVS.DP.Tests
 {
     [TestFixture]
     public class UnitOfWorkTests
     {
-        private List<User> users;
-        private UnitOfWork.UnitOfWork unitOfWork;
+        private UnitOfWork _unitOfWork;
 
         [SetUp]
         public void SetUp()
         {
-            users = new List<User>();
+            var users = new List<User>();
 
             users.Add(new User { Id = 1, Name = "Percy", Address = string.Empty });
             users.Add(new User { Id = 2, Name = "Kevin", Address = string.Empty });
@@ -26,9 +24,9 @@ namespace SVS.DP.Tests
             users.Add(new User { Id = 5, Name = "Carlos", Address = string.Empty });
             users.Add(new User { Id = 6, Name = "Yordy", Address = string.Empty });
 
-            unitOfWork = new UnitOfWork.UnitOfWork();
+            _unitOfWork = new UnitOfWork();
 
-            unitOfWork.ExistingUsers = users;
+            _unitOfWork.ExistingUsers = users;
         }
 
         [TestCase(1, "Percy")]
@@ -52,15 +50,41 @@ namespace SVS.DP.Tests
         [Test]
         public void WhenUserAlreadyExistsAddFeatureThrowsAnException()
         {
-            var existingUser = unitOfWork.ExistingUsers.Find(u => u.Id.Equals(1));
+            var existingUser = _unitOfWork.ExistingUsers.Find(u => u.Id.Equals(1));
 
-            Assert.Throws<Exception>(() => unitOfWork.AddUser(existingUser));
+            Assert.Throws<Exception>(() => _unitOfWork.AddUser(existingUser));
+        }
+
+        [Test]
+        public void WhenTryToUpdateUnexistingUserThrowsAnException()
+        {
+            var unexistingUser = new User() { Id = 100, Name = "Unknown" };
+
+            Assert.Throws<Exception>(() => _unitOfWork.UpdateUser(unexistingUser));
+        }
+
+        [Test]
+        public void WhenTryToRemoveUnexistingUserThrowsAnException()
+        {
+            var unexistingUser = new User() { Id = 100, Name = "Unknown"};
+
+            Assert.Throws<Exception>(() => _unitOfWork.RemoveUser(unexistingUser));
         }
 
         [Test]
         public void Main()
         {
-            
+            var newUser = new User() { Id = 7, Name = "Nuevo" };
+            var existingUser = _unitOfWork.ExistingUsers.Find(u => u.Id.Equals(1));
+            existingUser.Name = "Percy Ivan";
+
+            _unitOfWork.AddUser(newUser);
+            _unitOfWork.UpdateUser(existingUser);
+
+            _unitOfWork.Commit();
+
+            Assert.IsTrue(_unitOfWork.ExistingUsers.Any(u => u.Id.Equals(7)));
+            Assert.IsTrue(_unitOfWork.ExistingUsers.Find(u => u.Id.Equals(1)).Name.Equals("Percy Ivan"));
         }
     }
 }
